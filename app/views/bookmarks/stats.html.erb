@@ -1,10 +1,60 @@
 <h3 class="mt-4">Bookmarks distribution</h3>
 
 <h5 class="mt-4">Category distribution</h5>
-<div class="col-12 border border-info border-2 rounded">
-  <%= pie_chart @category_bmk%>
+<div class="col-12 border border-info border-2 rounded row">
+  <div class="col-8">
+    <%= pie_chart @category_bmk%>
+  </div>
+  <div class="col-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @category_bmk.each do |k,v| %>
+          <tr>
+            <td><%= k %></td>
+            <td><%= v %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>Total (100%)</td>
+          <td><%= @cat_total %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <h5 class="mt-4">Type distribution</h5>
-<div class="col-12 border border-info border-2 rounded">
-  <%= pie_chart @kind_bmk%>
+<div class="col-12 border border-info border-2 rounded row">
+  <div class="col-8">
+    <%= pie_chart @kind_bmk%>
+  </div>
+  <div class="col-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @kind_bmk.each do |k,v| %>
+          <tr>
+            <td><%= k %></td>
+            <td><%= v %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>Total (100%)</td>
+          <td><%= @kind_total %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

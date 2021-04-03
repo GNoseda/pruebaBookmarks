@@ -18,12 +18,12 @@ class BookmarksController < ApplicationController
   def stats
     #Graphic options
     @category_bmk = BookmarkCategory.group(:category_id).count()
-    total = @category_bmk.inject(0) { |acc, (k,v)| acc+= v }
-    @category_bmk = @category_bmk.map{|k,v| ["#{Category.find(k).title}: #{v} (#{percent(v,total)}%)", v] }.to_h
+    @cat_total = @category_bmk.inject(0) { |acc, (k,v)| acc+= v }
+    @category_bmk = @category_bmk.map{|k,v| ["#{Category.find(k).title}: #{v} (#{percent(v,@cat_total)}%)", v] }.to_h
     
     @kind_bmk = BookmarkKind.group(:kind_id).count()
-    total = @kind_bmk.inject(0) { |acc, (k,v)| acc+= v }
-    @kind_bmk = @kind_bmk.map{|k,v| ["#{Kind.find(k).title}: #{v} (#{percent(v,total)}%)", v] }.to_h
+    @kind_total = @kind_bmk.inject(0) { |acc, (k,v)| acc+= v }
+    @kind_bmk = @kind_bmk.map{|k,v| ["#{Kind.find(k).title}: #{v} (#{percent(v,@kind_total)}%)", v] }.to_h
   end
 
   # GET /bookmarks/1 or /bookmarks/1.json
