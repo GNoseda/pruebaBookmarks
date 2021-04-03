@@ -1,10 +1,10 @@
-<div id="statistics" class="row">
-  <div class="col-6 border border-info border-2 rounded">
-    <h5>Category distribution</h5>
-    <%= pie_chart @category_bmk%>
-  </div>
-  <div class="col-6 border border-info border-2 rounded">
-    <h5>Kind distribution</h5>
-    <%= pie_chart @kind_bmk%>
-  </div>
+<h3 class="mt-4">Bookmarks distribution</h3>
+
+<h5 class="mt-4">Category distribution</h5>
+<div class="col-12 border border-info border-2 rounded">
+  <%= pie_chart @category_bmk%>
+</div>
+<h5 class="mt-4">Type distribution</h5>
+<div class="col-12 border border-info border-2 rounded">
+  <%= pie_chart @kind_bmk%>
 </div>

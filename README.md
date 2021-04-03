@@ -1,24 +1,39 @@
-# README
+# Bookmarks manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
+This project allows to manage your website bookmarks and classify them on Categorys and Types. 
 
-Things you may want to cover:
+## Project DB
 
-* Ruby version
+![DBDiagram](app/assets/images/DBDiagram.png)
 
-* System dependencies
+This DB allows to save your bookmarks and classify them on several Categories and Types. 
 
-* Configuration
+*Note: Kinds its used instead of Types*
 
-* Database creation
+## Website Navigation
+This poroject count with 4 main views with their respective links on the navbar
 
-* Database initialization
+### Bookmarks (Home)
+This view shows all your bookmarks and their classification. Here you can also create new bookmarks.
 
-* How to run the test suite
+### Categories
+This view shows all your categories and their statistics.
+Also you can change the visibility of the category and their subcategories. 
 
-* Services (job queues, cache servers, search engines, etc.)
+*Note: When you change the visibility of a Category, all subcategories associated will set the same visibility value*
 
-* Deployment instructions
+*Note: When visibility is setted on Private you can't access to category's details. Private categories can't be associated to a new bookmark, so they don't appear on the "New Bookmark" form*
 
-* ...
+On the show link of each category you can see the category overview and the bookmarks associated
+
+### Types
+This view shows all your Types and their statistics.
+On the show link of each type you can see the type overview and the bookmarks associated
+
+### Statistics
+This view shows the distribution of your bookmarks on Categories and Types
+
+
+
+

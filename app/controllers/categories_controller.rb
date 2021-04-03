@@ -16,6 +16,7 @@ class CategoriesController < ApplicationController
     respuesta[:bookmarks] = @category.get_bookmarks
     render json: JSON.pretty_generate(respuesta)    
   end
+
   # GET /categories/1 or /categories/1.json
   def show
     @bookmarks = @category.bookmarks
@@ -23,6 +24,10 @@ class CategoriesController < ApplicationController
 
   def change
     @category.change_public
+    @categories = Category.all
+    respond_to do |format|
+      format.js { render nothing: true, notice: "Category Visibility was changed." }
+    end
   end
   # GET /categories/new
   def new

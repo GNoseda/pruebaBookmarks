@@ -10,7 +10,7 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.new
     
     #Category Options
-    @category_options = Category.all
+    @category_options = Category.where(is_public: true)
     @kind_options = Kind.all
 
   end

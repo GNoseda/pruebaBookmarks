@@ -9,7 +9,7 @@ class Bookmark < ApplicationRecord
   has_many :bookmark_categories
   has_many :categories, through: :bookmark_categories
   accepts_nested_attributes_for :bookmark_categories
-
+  
   def get_categories
     formater(self.categories)
   end
