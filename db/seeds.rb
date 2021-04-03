@@ -7,35 +7,52 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-Category.destroy_all
-Kind.destroy_all
+BookmarkCategory.destroy_all
+BookmarkKind.destroy_all
 Bookmark.destroy_all
+#Category.destroy_all
+Kind.destroy_all
 
-created = 0
-20.times do
-    Category.create(
-        title: names.sample,
+
+#2.times do
+#    Category.create!(
+#        title: Faker::Commerce.department,
+#        is_public: true
+#    )
+#end
+
+#8.times do
+#   Category.create!(
+#       title: Faker::Commerce.department,
+#        is_public: true,
+#        category_id: Category.all.sample.id
+#    )
+#end
+
+10.times do
+   Kind.create(
+        title: Faker::Hipster.word
+   )
+end
+
+categories = Category.all
+kinds = Kind.all
+
+50.times do
+    Bookmark.create!(
+        title: Faker::Internet.domain_word,
         url: Faker::Internet.domain_name,
-        price: rand(1990..5490),
-        origin: origins.sample
-    )
-    created = created + 1
-end
-
-20.times do
-    Kind.create(
-        title: names.sample,
-        url: Faker::Date.between('2020-01-01','2021-03-31'),
-        price: rand(1990..5490),
-        origin: origins.sample
     )
 end
+bookmarks = Bookmark.all
 
-20.times do
-    Bookmark.create(
-        title: names.sample,
-        url: Faker::Date.between('2020-01-01','2021-03-31'),
-        price: rand(1990..5490),
-        origin: origins.sample
-    )
+bookmarks.each do |bk|
+    cats = rand(1..5)
+    cats.times do
+        BookmarkCategory.create!(bookmark_id: bk.id, category_id: categories.sample.id)
+    end
+    knd = rand(1..5)
+    knd.times do
+        BookmarkKind.create!(bookmark_id: bk.id, kind_id: kinds.sample.id)
+    end
 end

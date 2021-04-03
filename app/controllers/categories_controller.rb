@@ -1,15 +1,29 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show edit update destroy ]
+  
+  before_action :set_category, only: %i[ show edit update destroy api change]
+  require 'json'
 
   # GET /categories or /categories.json
   def index
     @categories = Category.all
   end
 
+  def api 
+    respuesta = {}
+    respuesta[:id] = @category.id
+    respuesta[:title] = @category.title
+    respuesta[:subcategories] = @category.get_sc_titles
+    respuesta[:bookmarks] = @category.get_bookmarks
+    render json: JSON.pretty_generate(respuesta)    
+  end
   # GET /categories/1 or /categories/1.json
   def show
+    @bookmarks = @category.bookmarks
   end
 
+  def change
+    @category.change_public
+  end
   # GET /categories/new
   def new
     @category = Category.new

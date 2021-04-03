@@ -8,6 +8,7 @@ class KindsController < ApplicationController
 
   # GET /kinds/1 or /kinds/1.json
   def show
+    @bookmarks = @kind.bookmarks
   end
 
   # GET /kinds/new

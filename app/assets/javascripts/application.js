@@ -17,3 +17,8 @@
 //= require jquery/dist/jquery
 //= require popper
 //= require bootstrap-sprockets
+//= require chartkick
+//= require highcharts
+
+require("jquery")
+require("channels")

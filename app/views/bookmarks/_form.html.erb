@@ -10,28 +10,49 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="row border border-info border-2 rounded">
+    <h4>New Bookmark</h4>
+    <div class="col-3">
+      <div class="field">
+        <%= form.label :title, class: "form-label" %>
+        <%= form.text_field :title, class: "form-control"%>
+      </div>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+      <div class="field">
+        <%= form.label :url, class: "form-label" %>
+        <%= form.text_field :url, class: "form-control" %>
+      </div>
+    </div>
+
+
+    <div class="field col-4">
+      <h5>Categories</h5>
+      <div class="container  border border-info border-1 rounded">
+        <%= form.collection_check_boxes(:category_ids, @category_options,:id,:title, class:"form-check") do |cat| %>
+          <%= cat.label class: "form-check-label col-12" do %>
+            <%= cat.check_box(class: "form-check-input") + cat.text  %>
+          <% end %>
+        <% end %>  
+      </div>
+    </div>
+
+    <div class="field col-4">
+      <h5>Types</h5>
+      <div class="container  border border-info border-1 rounded">
+        <%= form.collection_check_boxes(:kind_ids, @kind_options,:id,:title, class:"form-check") do |knd|%>
+          <%= knd.label class: "form-check-label col-12" do %>
+            <%= knd.check_box(class: "form-check-input") + knd.text.slice(0,1).capitalize + knd.text.slice(1..-1)  %>
+          <% end %>
+        <% end %>  
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="actions col-2">
+        <%= form.submit 'Save Bookmark', data: {confirm: 'Your confirm message'}, class: "btn btn-primary my-3"%>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :url %>
-    <%= form.text_field :url %>
-  </div>
-
-  <div class="field">
-    <%= form.label :category %>
-    <%= select("category_id", "id", @category_options, {:include_blank => 'Select a category'}) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :kind_id %>
-    <%= select("kind_id", "id", @kind_options, {:include_blank => 'Select a kind'}) %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Save Bookmark', data: { confirm: 'Your confirm message' }%>
-  </div>
 <% end %>

@@ -3,10 +3,27 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks or /bookmarks.json
   def index
+    #Index info
     @bookmarks = Bookmark.all
+    
+    #Form info
     @bookmark = Bookmark.new
-    @category_options = Category.all.pluck(:title, :id)
-    @kind_options = Kind.all.pluck(:title, :id)
+    
+    #Category Options
+    @category_options = Category.all
+    @kind_options = Kind.all
+
+  end
+  
+  def stats
+    #Graphic options
+    @category_bmk = BookmarkCategory.group(:category_id).count()
+    total = @category_bmk.inject(0) { |acc, (k,v)| acc+= v }
+    @category_bmk = @category_bmk.map{|k,v| ["#{Category.find(k).title}: #{v} (#{percent(v,total)}%)", v] }.to_h
+    
+    @kind_bmk = BookmarkKind.group(:kind_id).count()
+    total = @kind_bmk.inject(0) { |acc, (k,v)| acc+= v }
+    @kind_bmk = @kind_bmk.map{|k,v| ["#{Kind.find(k).title}: #{v} (#{percent(v,total)}%)", v] }.to_h
   end
 
   # GET /bookmarks/1 or /bookmarks/1.json
@@ -20,16 +37,20 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks/1/edit
   def edit
+    #Category Options
+    @category_options = Category.all
+    @kind_options = Kind.all
+
   end
 
   # POST /bookmarks or /bookmarks.json
   def create
     @bookmark = Bookmark.new(bookmark_params)
-    @bookmark.category_id = params[:category_id][:id]
-    @bookmark.kind_id = params[:kind_id][:id]
     respond_to do |format|
       if @bookmark.save
         @bookmarks = Bookmark.all
+        @category_options = Category.all
+        @kind_options = Kind.all
         format.js { render nothing: true, notice: "Bookmark was successfully created." }
         format.html { redirect_to @bookmark, notice: "Bookmark was successfully created." }
         format.json { render :show, status: :created, location: @bookmark }
@@ -53,8 +74,10 @@ class BookmarksController < ApplicationController
     end
   end
 
+
   # DELETE /bookmarks/1 or /bookmarks/1.json
   def destroy
+    @bookmark.destroy_dependant
     @bookmark.destroy
     respond_to do |format|
       format.html { redirect_to bookmarks_url, notice: "Bookmark was successfully destroyed." }
@@ -70,6 +93,10 @@ class BookmarksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bookmark_params
-      params.require(:bookmark).permit(:title, :url, :category_id, :kind_id)
+      params.require(:bookmark).permit(:title, :url, category_ids:[], kind_ids:[])
+    end
+
+    def percent(v,total)
+      ((v.to_f/total.to_f)*100).round(2)
     end
 end

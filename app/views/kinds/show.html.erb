@@ -1,9 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @kind.title %>
-</p>
+<h4><%= @kind.title %></h4> 
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Url</th>
+      <th>Category</th>
+      <th>Kind</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render 'bookmarks/index' %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_kind_path(@kind) %> |
 <%= link_to 'Back', kinds_path %>

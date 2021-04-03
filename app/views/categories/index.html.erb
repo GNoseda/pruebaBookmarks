@@ -2,12 +2,13 @@
 
 <h1>Categories</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>
-      <th>Category</th>
-      <th>Is public</th>
+      <th>Parent Category</th>
+      <th>Public Status</th>
+      <th>Bookmarks</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,8 +17,9 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.title %></td>
-        <td><%= category.category %></td>
-        <td><%= category.is_public %></td>
+        <td><%= category.parent %></td>
+        <td><%= link_to category.public_status, change_path(category), method: :post, remote: :true %></td>
+        <td><%= category.bookmark_count %></td>
         <td><%= link_to 'Show', category %></td>
         <td><%= link_to 'Edit', edit_category_path(category) %></td>
         <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>

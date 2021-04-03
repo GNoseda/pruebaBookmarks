@@ -11,13 +11,13 @@
 </p>
 
 <p>
-  <strong>Category:</strong>
-  <%= @bookmark.category %>
+  <strong>Categories:</strong>
+  <%= @bookmark.get_categories %>
 </p>
 
 <p>
-  <strong>Kind:</strong>
-  <%= @bookmark.kind %>
+  <strong>Types:</strong>
+  <%= @bookmark.get_kinds %>
 </p>
 
 <%= link_to 'Edit', edit_bookmark_path(@bookmark) %> |

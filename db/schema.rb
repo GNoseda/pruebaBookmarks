@@ -10,20 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_232532) do
+ActiveRecord::Schema.define(version: 2021_04_01_234000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bookmarks", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
+  create_table "bookmark_categories", force: :cascade do |t|
+    t.bigint "bookmark_id"
     t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookmark_id"], name: "index_bookmark_categories_on_bookmark_id"
+    t.index ["category_id"], name: "index_bookmark_categories_on_category_id"
+  end
+
+  create_table "bookmark_kinds", force: :cascade do |t|
+    t.bigint "bookmark_id"
     t.bigint "kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_bookmarks_on_category_id"
-    t.index ["kind_id"], name: "index_bookmarks_on_kind_id"
+    t.index ["bookmark_id"], name: "index_bookmark_kinds_on_bookmark_id"
+    t.index ["kind_id"], name: "index_bookmark_kinds_on_kind_id"
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -41,7 +55,9 @@ ActiveRecord::Schema.define(version: 2021_03_31_232532) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "bookmarks", "categories"
-  add_foreign_key "bookmarks", "kinds"
+  add_foreign_key "bookmark_categories", "bookmarks"
+  add_foreign_key "bookmark_categories", "categories"
+  add_foreign_key "bookmark_kinds", "bookmarks"
+  add_foreign_key "bookmark_kinds", "kinds"
   add_foreign_key "categories", "categories"
 end

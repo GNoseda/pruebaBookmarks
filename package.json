@@ -2,6 +2,8 @@
   "name": "bookmarks",
   "private": true,
   "dependencies": {
+    "chartkick": "^3.2.1",
+    "highcharts": "^9.0.1",
     "jquery": "^3.6.0"
   }
 }
